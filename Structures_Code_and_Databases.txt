@@ -1,0 +1,66 @@
+Client:
+- Registration
+- Logging In
+- Displays player surroundings to player
+- May send action request to server
+- Gets relevant events from server
+- Player may : 
+    Move (Moving into an occupied area means attempting to attack whatever's there to harvest materials from it), 
+    Craft (Convert some materials into other materials), 
+    Equip (gain bonuses from tools - there are two slots, one for hand and one for armor), 
+    Place (putting items in cells)
+
+
+Server:
+- Holds the active map 
+- Holds the active NPCs (monsters, etc, as threads) and makes them act according to programmed AI
+- Holds all active player connections (as threads), sends update events and resolves their actions
+- Generates more map if players attempt to go to non-existing areas
+- Spawns NPCs depending on player.
+- Updates database when event happens, reads database when starting.
+
+
+---
+
+
+Interface MapObject:
+    Floor 
+    Static (Non-acting map objects, such as trees, rocks, and walls)
+    Dynamic (NPCs)
+    Player
+
+Database Class:
+    A unique class that communicates with the database.
+
+NPC_Spawner Class:
+    Creates NPCs, depending on number of online players, current number of active NPCs, player locations, terrain...
+
+Map_Generator Class:
+    Generates terrain when needed, depending on other terrain.
+
+
+---
+
+SQL database plans
+
+User(UserID, Userame, Password, Salt, eMail, Role, SignDate, Active, UserIMG, Level, CurrentXP)
+
+PlayerLocation(UserID, X, Y)
+
+Equipment(EID, Name, EqIMG)
+
+Resources(RID, Name, ResIMG)
+
+CharEquipment(UserID, EID)
+
+CharInv(UserID, ResID, Amount)
+
+ActiveMonster(PKID, Type, MaxHP, X, Y, CurrentHP, Hunger)
+
+MonsterTypes(TypeID, MonsterIMG)
+
+SurfaceType (SID, Name, SurfaceIMG)
+
+TileSurface(X, Y, SID)
+
+TileObject(X, Y, OID)
