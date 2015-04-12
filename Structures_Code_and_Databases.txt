@@ -25,8 +25,8 @@ Server:
 
 Interface MapObject:
     Floor 
-    Static (Non-acting map objects, such as trees, rocks, and walls)
-    Dynamic (NPCs)
+    MapItem (Non-acting map objects, such as trees, rocks, and walls)
+    Creature (NPCs)
     Player
 
 Database Class:
