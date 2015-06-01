@@ -272,7 +272,7 @@ BEGIN
 		SET Result = 0;
     ELSE
 		SET Result = 1;
-		INSERT INTO User (Username, Password, Salt, eMail, Role, Active, UserIMG, Level, CurrentXP, ActivationCode) VALUES(UserName2 ,Password2 ,Salt2 ,eMail2, 0,0 ,UserIMG2, 0, 0 ,ActivationCode2);
+		INSERT INTO user (Username, Password, Salt, eMail, Role, Active, UserIMG, Level, CurrentXP, ActivationCode) VALUES(UserName2 ,Password2 ,Salt2 ,eMail2, 0,0 ,UserIMG2, 0, 0 ,ActivationCode2);
         
         SET @ID := (SELECT UserID FROM user WHERE Username LIKE UserName2);
         
@@ -863,4 +863,4 @@ DELIMITER ;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2015-06-01 19:18:55
+-- Dump completed on 2015-06-01 19:29:43
