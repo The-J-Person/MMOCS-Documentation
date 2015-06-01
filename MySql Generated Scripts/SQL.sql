@@ -145,7 +145,7 @@ CREATE TABLE `user` (
   `Role` int(11) NOT NULL,
   `SignDate` date DEFAULT NULL,
   `Active` bit(1) NOT NULL,
-  `UserIMG` varchar(200) NOT NULL,
+  `UserIMG` varchar(200) DEFAULT NULL,
   `Level` int(11) NOT NULL,
   `CurrentXP` int(11) NOT NULL,
   `ActivationCode` varchar(200) NOT NULL,
@@ -863,4 +863,4 @@ DELIMITER ;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2015-06-01 19:29:43
+-- Dump completed on 2015-06-01 20:04:08
