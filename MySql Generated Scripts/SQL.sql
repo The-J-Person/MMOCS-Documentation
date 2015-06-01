@@ -308,7 +308,7 @@ DELIMITER ;
 /*!50003 SET character_set_client  = @saved_cs_client */ ;
 /*!50003 SET character_set_results = @saved_cs_results */ ;
 /*!50003 SET collation_connection  = @saved_col_connection */ ;
-/*!50003 DROP PROCEDURE IF EXISTS `Get_Equipment_Of_Player` */;
+/*!50003 DROP PROCEDURE IF EXISTS `Get_Inventory` */;
 /*!50003 SET @saved_cs_client      = @@character_set_client */ ;
 /*!50003 SET @saved_cs_results     = @@character_set_results */ ;
 /*!50003 SET @saved_col_connection = @@collation_connection */ ;
@@ -318,7 +318,7 @@ DELIMITER ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
 /*!50003 SET sql_mode              = 'STRICT_TRANS_TABLES,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION' */ ;
 DELIMITER ;;
-CREATE DEFINER=`root`@`localhost` PROCEDURE `Get_Equipment_Of_Player`(
+CREATE DEFINER=`root`@`localhost` PROCEDURE `Get_Inventory`(
 		IN User INTEGER, OUT Result INTEGER)
 BEGIN
 	IF(SELECT COUNT(*) FROM user WHERE UserID = User) = 0
@@ -326,9 +326,8 @@ BEGIN
 		SET Result = 0;
 	ELSE
 		SET Result = 1;
-		SELECT eq.eid,eq.Name,eq.EqIMG FROM equipment eq, charequipment ce
-		WHERE eq.eid = ce.eid
-		AND ce.UserID = User;
+		SELECT RID,Amount FROM charinv
+		WHERE UserID = User;
 	END IF;
 END ;;
 DELIMITER ;
@@ -793,4 +792,4 @@ DELIMITER ;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2015-06-01  7:10:40
+-- Dump completed on 2015-06-01 17:59:19
