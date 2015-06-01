@@ -139,7 +139,7 @@ DROP TABLE IF EXISTS `user`;
 CREATE TABLE `user` (
   `UserID` int(11) NOT NULL AUTO_INCREMENT,
   `Username` varchar(20) NOT NULL,
-  `Password` varchar(20) NOT NULL,
+  `Password` varchar(200) NOT NULL,
   `Salt` varchar(200) NOT NULL,
   `eMail` varchar(200) DEFAULT NULL,
   `Role` int(11) NOT NULL,
@@ -234,7 +234,7 @@ DELIMITER ;
 /*!50003 SET sql_mode              = 'STRICT_TRANS_TABLES,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION' */ ;
 DELIMITER ;;
 CREATE DEFINER=`root`@`localhost` PROCEDURE `Add_User`(
-		IN UserName2 VARCHAR(20), IN Password2 VARCHAR(20),IN Salt2 VARCHAR(20), IN eMail2 VARCHAR(20), IN UserIMG2 VARCHAR(20), IN ActivationCode2 VARCHAR(20), OUT Result INTEGER)
+		IN UserName2 VARCHAR(20), IN Password2 VARCHAR(200),IN Salt2 VARCHAR(200), IN eMail2 VARCHAR(200), IN UserIMG2 VARCHAR(200), IN ActivationCode2 VARCHAR(200), OUT Result INTEGER)
 BEGIN
 	IF (SELECT COUNT(*) FROM user WHERE UserName LIKE UserName2) = 1
     THEN
@@ -594,7 +594,7 @@ DELIMITER ;
 /*!50003 SET sql_mode              = 'STRICT_TRANS_TABLES,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION' */ ;
 DELIMITER ;;
 CREATE DEFINER=`root`@`localhost` PROCEDURE `Login`(
-		IN UserName2 VARCHAR(20), IN Password2 VARCHAR(20), OUT Result INTEGER)
+		IN UserName2 VARCHAR(20), IN Password2 VARCHAR(200), OUT Result INTEGER)
 BEGIN
 	IF(SELECT COUNT(*) FROM user WHERE Username LIKE UserName2) = 0
     THEN
@@ -793,4 +793,4 @@ DELIMITER ;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2015-05-31  2:35:31
+-- Dump completed on 2015-06-01  7:10:40
