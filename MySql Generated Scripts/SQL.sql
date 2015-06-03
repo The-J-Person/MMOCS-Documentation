@@ -848,13 +848,23 @@ CREATE DEFINER=`root`@`localhost` PROCEDURE `Set_Tile`(
 		IN Xc INTEGER, IN Yc INTEGER,IN FloorID INTEGER, IN ObjectID INTEGER)
 BEGIN
 
-	UPDATE tilesurface SET X = Xc , Y = Yc , SID = FloorID WHERE X = Xc AND Y = Yc;
+	IF(SELECT COUNT(*) FROM tilesurface WHERE X = Xc AND Y = Yc) > 0
+    THEN
+		UPDATE tilesurface SET X = Xc , Y = Yc , SID = FloorID WHERE X = Xc AND Y = Yc;
+	ELSE
+		INSERT INTO tilesurface ( X, Y, SID ) VALUES(Xc ,Yc ,FloorID);
+	END IF;
     
-    IF ( ObjectID = -1 OR ObjectID = 1 OR ObjectID = 2 )
+    IF ( ObjectID = -1 OR ObjectID = 1 OR ObjectID = 0 )
     THEN
 		DELETE FROM tileobject WHERE X = Xc AND Y = Yc;
 	ELSE
-		UPDATE tileobject SET X = Xc , Y = Yc , OID = ObjectID WHERE X = Xc AND Y = Yc;
+		IF( SELECT COUNT(*) FROM tileobject WHERE X = Xc AND Y = Yc ) > 0
+        THEN
+			UPDATE tileobject SET X = Xc , Y = Yc , OID = ObjectID WHERE X = Xc AND Y = Yc;
+		ELSE
+			INSERT INTO tileobject ( X, Y, OID ) VALUES(Xc ,Yc ,ObjectID);
+            END IF;
 	END IF;
     
 END ;;
@@ -927,4 +937,4 @@ DELIMITER ;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2015-06-03 17:29:32
+-- Dump completed on 2015-06-03 21:19:00
