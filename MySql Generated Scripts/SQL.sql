@@ -163,7 +163,7 @@ CREATE TABLE `user` (
   `CurrentXP` int(11) NOT NULL,
   `ActivationCode` varchar(200) NOT NULL,
   PRIMARY KEY (`UserID`)
-) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -755,14 +755,14 @@ DELIMITER ;;
 CREATE DEFINER=`root`@`localhost` PROCEDURE `Remove_Item_From_Inventory`(
 		IN PlayerID INTEGER, IN ResourecID INTEGER, IN Amnt INTEGER, OUT Result INTEGER)
 BEGIN
-	IF(SELECT COUNT(*) FROM user WHERE UserID = UID) = 0
+	IF(SELECT COUNT(*) FROM user WHERE UserID = PlayerID) = 0
     THEN
 		SET Result = 0;
-	ELSEIF(SELECT COUNT(*) FROM charinv WHERE UserID = UID AND RID = ResourecID) = 0
+	ELSEIF(SELECT COUNT(*) FROM charinv WHERE UserID = PlayerID AND RID = ResourecID) = 0
     THEN
 		SET Result = 1;
 	ELSE 
-		SET @NUM := (SELECT Amount FROM charinv WHERE UserID = UID AND RID = ResourecID);
+		SET @NUM := (SELECT Amount FROM charinv WHERE UserID = PlayerID AND RID = ResourecID);
 		IF(Amnt > NUM) 
         THEN
 			SET Result = 2;
@@ -770,7 +770,7 @@ BEGIN
 			SET Result = 3;
 			IF(NNUM = Amnt)
             THEN
-				DELETE FROM charinv WHERE UserID = UID AND RID = ResourecID;
+				DELETE FROM charinv WHERE UserID = PlayerID AND RID = ResourecID;
 			ELSE
 				UPDATE charinv SET Amount = Amount - Amnt WHERE UserID = PlayerID AND RID = ResourecID; 
 			END IF;
@@ -937,4 +937,4 @@ DELIMITER ;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2015-06-03 21:19:00
+-- Dump completed on 2015-06-04 16:48:46
