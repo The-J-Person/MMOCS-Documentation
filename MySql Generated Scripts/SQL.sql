@@ -763,12 +763,12 @@ BEGIN
 		SET Result = 1;
 	ELSE 
 		SET @NUM := (SELECT Amount FROM charinv WHERE UserID = PlayerID AND RID = ResourecID);
-		IF(Amnt > NUM) 
+		IF(Amnt > @NUM) 
         THEN
 			SET Result = 2;
 		ELSE
 			SET Result = 3;
-			IF(NNUM = Amnt)
+			IF(@NUM = Amnt)
             THEN
 				DELETE FROM charinv WHERE UserID = PlayerID AND RID = ResourecID;
 			ELSE
@@ -937,4 +937,4 @@ DELIMITER ;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2015-06-04 16:48:46
+-- Dump completed on 2015-06-04 17:09:59
